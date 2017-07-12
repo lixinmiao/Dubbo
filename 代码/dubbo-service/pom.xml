@@ -154,7 +154,7 @@
 	</dependency>
   </dependencies>
   <build>
-    <finalName>dubbo-service</finalName>
+    <finalName>dubbo-service</finalName><!--java -jar dubbo-service.jar 配置不可变-->
      <resources>
             <resource>
                 <targetPath>${project.build.directory}/classes</targetPath>
