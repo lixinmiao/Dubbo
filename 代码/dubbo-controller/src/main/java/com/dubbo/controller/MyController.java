@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dubbo.service.TestService;
+import com.gistandard.dubbo.CouponDubboService;
+import com.gistandard.dubbo.bean.CheckHaveCouponBean;
+import com.gistandard.dubbo.bean.DataResultBean;
 
 /**
  * controller
@@ -16,15 +19,21 @@ import com.dubbo.service.TestService;
 @Controller
 public class MyController {
 	
+	/*@Autowired
+	private TestService testService;*/
+	
 	@Autowired
-	private TestService testService;
+	private CouponDubboService couponDubboService;
 	
 	@RequestMapping(value = "/test")
 	@ResponseBody
-	public String testSay(@RequestParam(value = "name",defaultValue = "") String name){
-		StringBuffer sb = new StringBuffer();
-		sb.append("Dubbo: ").append(testService.sayHello(name));
-		return sb.toString();
+	public String testSay(){
+		CheckHaveCouponBean checkHaveCouponBean=new CheckHaveCouponBean();
+		checkHaveCouponBean.setAccountCode("CN0002502520000");
+		checkHaveCouponBean.setCityCode("3195");
+		checkHaveCouponBean.setProductType("OTCYSEX");
+		DataResultBean bean=couponDubboService.checkHaveCoupons(checkHaveCouponBean);
+		return bean.getErrorCode();
 	}
 	
 }
